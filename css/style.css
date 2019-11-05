@@ -1,0 +1,105 @@
+html, body {
+    position: relative;
+    width: 55%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    background-color: #E7E7E7;
+}
+
+#topBar{
+    font-size: 3vh;
+    height: 7vh;
+    position: sticky;
+    right: 0px;
+    top: 0px;
+    /* margin-bottom: 16; */
+    margin-top: -8px;
+    margin-bottom: 16px;
+    width: 100%;
+    background-color: #212121;
+    align-items: center;
+    color: white;
+}
+
+#topBarOptions{
+    /* position: absolute; */
+    margin-right: 10px;
+    float: right
+
+}
+
+#grid { 
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 1vw;
+    margin-top: 32px;
+    margin-left: 24px;
+    margin-right: 24px;
+    }
+#grid > div {
+    /* top: 16px ; */
+    font-size: 2vh;
+    padding: .5em;
+    /* background: blue; */
+    text-align: center;
+    height: 12vh;
+    color: #E7E7E7;
+}
+
+.gridReady{
+    background: #8E8E8E;
+}
+
+.gridProgress{
+    background: #CBCBCB;
+}
+
+.gridEnded{
+    background: #D9D9D9;
+}
+
+.name1{
+    text-align: left;
+    height: 4.5vh;
+}
+
+.name2{
+    text-align: left;
+    height: 4.5vh;
+    border-top: 1px solid #3A3A3A
+}
+
+.gameTime{
+    color: #3A3A3A;
+    text-align: right;
+    font-size: 12px;
+}
+
+.username{
+    font-size: 2vh;
+    margin-top: 24px;
+    margin-left: 24px;
+    margin-right: 24px;
+    border-bottom: 1px solid #CBCBCB;
+}
+
+#inputName{
+    margin-right: -10px;
+}
+
+.gridX{
+    color: red;
+}
+
+.gridO{
+    color: green;
+}
+
+.gridEmpty{
+    color: rgba(0,0,0,0.5);
+}
+
+  button { cursor: pointer; }
