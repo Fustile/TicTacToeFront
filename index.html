@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
 <head>                                                               
-    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
+
     <link href="css/style.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
 </head>
 
@@ -13,7 +13,12 @@
         <p class="ticTacToe">Tic Tac Toe</p>
     </div>
 
-    <div class="username">Username Example</div>
+    <div class="username">
+        <input type="text" id="usernameInput" placeholder="Username">
+        <button type="button" id="usernameSubmit">
+                <i class="fa fa-sign-in fa-lg" aria-hidden="true"></i>
+        </button>
+    </div>
 
     <div id="grid">
         <div class="gridReady">
@@ -55,5 +60,7 @@
     </div>
 
 
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
 
 </body>

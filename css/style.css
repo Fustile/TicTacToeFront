@@ -19,6 +19,7 @@ html, body {
     background-color: #212121;
     align-items: center;
     color: white;
+    box-shadow: 0px 3px 5px grey;
 }
 
 #topBarOptions{
@@ -87,14 +88,58 @@ html, body {
     border-bottom: 1px solid #CBCBCB;
 }
 
+.playersBar{
+    height: 34px;
+    font-size: 2vmin;
+    margin-top: 16px;
+    margin-left: 24px;
+    margin-right: 24px;
+}
+
+.playerContainer{
+    height: 34px
+}
+
+.playerOne{
+    float: left;
+}
+
+.playerTwo{
+    float: right;
+}
+
+.playerActive{
+    border-bottom: 2px solid black
+}
+
+.imgActive{
+    color: #2d9cdb
+}
+
+.imgInactive{
+    color: #CBCBCB
+}
+
+.playerOneImg{
+    float: left;
+    height: 2vmin;
+    width: 2vmin;
+    margin-top: 2px;
+    margin-left: 8px;
+}
+
+.playerTwoImg{
+    float: right;
+    height: 2vmin;
+    width: 2vmin;
+    margin-top: 2px;
+    margin-right: 8px;
+}
+
 .ticTacToe{
     position: absolute;
     font-size: 3vmin;
     margin: 2vmin;
-}
-
-#inputName{
-    margin-right: -10px;
 }
 
 .gridX{
