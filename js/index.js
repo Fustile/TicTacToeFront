@@ -2,19 +2,6 @@ $(document).ready(function(){
 
                                             // Index.html
 
-    $("#game1").hide()
-    $("#game2").hide()
-    $("#game3").hide()
-    $("#game4").hide()
-    $("#game5").hide()
-    $("#game6").hide()
-    $("#game7").hide()
-    $("#game8").hide()
-    $("#game9").hide()
-    $("#game10").hide()
-    $("#game11").hide()
-    $("#game12").hide()
-
     for (let n = 0; n < 20; n++) {
         $("#game" + n).hide()
     }
@@ -42,7 +29,6 @@ $(document).ready(function(){
                 if (json == buffer)
                 return
                 buffer = json
-                console.log(json)
                 fillGrid(json)
             }
         })
@@ -50,7 +36,7 @@ $(document).ready(function(){
 
     function fillGrid(json){
         $.each(json, function(index){
-            console.log( [index + 1] + ": " + json[index].owner );
+            // console.log( [index + 1] + ": " + json[index].owner );
             $("#game" + [index+1]).find(".name1").removeClass("winner")
             $("#game" + [index+1]).find(".name1").removeClass("winner")
             if (json[index].gameState == "ready"){
@@ -62,6 +48,7 @@ $(document).ready(function(){
                 $("#game" + [index+1]).attr("class","gridProgress")
                 $("#game" + [index+1]).find(".name1").text(json[index].owner)
                 $("#game" + [index+1]).find(".name2").text(json[index].opponent)
+                $("#game" + [index+1]).find(".name2").show()
             }
             if (json[index].gameState == "done"){
                 if ( json[index].gameResult == "owner"){
@@ -75,6 +62,7 @@ $(document).ready(function(){
                     $("#game" + [index+1]).find(".name2").html(json[index].opponent + '<i class="fa fa-check" aria-hidden="true"></i>')
                 }
                 $("#game" + [index+1]).attr("class","gridEnded")
+                $("#game" + [index+1]).find(".name2").show()
             }
             $("#game" + [index+1]).find(".gameTime").text(json[index].gameDuration)
             $("#game" + [index+1]).show()
@@ -84,31 +72,37 @@ $(document).ready(function(){
     var num
     var _id
     $("[id^=game]").click(function () {
-        if (user == undefined){
-            $("#usernameInput").css('outline', 'solid 1px red');
-            return
-        }
-        num = this.id.slice(4)
-        num--
-        _id = buffer[num].id
-        var joinGame = {
-            username: user,
-            id: _id
-        }
-        console.log(JSON.stringify(joinGame))
-        $.ajax({
-            type: 'POST',
-            url: '/games/join',
-            data: JSON.stringify(joinGame),
-            contentType: "application/json;charset=utf-8",
-            dataType: 'json',
-            success: function(json){
-                console.log(json)
-            },
-            error: function (e) {
-                console.log(e);
+        // if ($(this).hasClass("gridReady") == true) {
+        //     console.log("class gridReady")
+            if (user == undefined){
+                $("#usernameInput").css('outline', 'solid 1px red');
+                return
             }
-        })   
+            num = this.id.slice(4)
+            num--
+            _id = buffer[num].id
+            var joinGame = {
+                username: user,
+                id: _id
+            }
+            if ($(this).hasClass("gridReady") == false) {
+                console.log("class not gridReady")
+                joinGame.id = 0
+            }
+            console.log(JSON.stringify(joinGame))
+            $.ajax({
+                type: 'POST',
+                url: '/games/join',
+                data: JSON.stringify(joinGame),
+                contentType: "application/json;charset=utf-8",
+                dataType: 'json',
+                success: function(json){
+                    console.log(json)
+                },
+            })
+            document.location.href = "/game"
+  
+        // }
     })
 
     var user
@@ -143,34 +137,8 @@ $(document).ready(function(){
             success: function(json){
                 console.log(json)
             },
-            error: function (e) {
-                console.log(e);
-            }
         })
     })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
 
                                             // Game.html

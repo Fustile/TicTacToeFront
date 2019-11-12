@@ -1,9 +1,15 @@
 var express = require("express")
 var bodyParser = require("body-parser")
-var fs = require("fs")
+const path = require("path")
 
 var app = express()
+
 app.use(express.static(__dirname));
+app.set('views', __dirname);
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+
+
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -19,6 +25,7 @@ var games = [
         gameState: "ready"
     },
     {
+        id: 2,
         owner: "Premade Two",
         opponent: "Opponent",
         size: 4,
@@ -37,27 +44,47 @@ var games = [
     }
 ]
 
-
+var GamePage = path.join(__dirname + "/game.html")
 
 app.get("/hello", function(req, res){
-    res.send("Hello")
+    res.send(__dirname)
 })
 
 app.get('/', function(req, res){
-    res.render("index.html");
+    res.render("home")
 });
+
+app.get('/game', function(req, res){
+    res.render("game", {reqGame})
+});
+
+var reqGame
+
+app.post("/games/join", function (req, res) {
+    games.forEach(function(item){
+        if (item.id == req.body.id){
+            reqGame = item
+            item.opponent = req.body.username
+            item.gameState = "playing"
+            console.log("game joined!")
+        }
+    })
+    res.send(reqGame);
+})
 
 app.get("/games/list", function(req, res){
     res.send(games)
 })
 
-// app.get("/games/:id", function(req, res){
-//     console.log(req.params)
-//     var game = games.find(function (game) {
-//         return game.id === Number(req.params.id)
-//     })
-//     res.send(game)
-// })
+app.post("/games/:id", function(req, res){
+    let game
+    games.forEach(function(item){
+        if (item.id == req.params.id){
+            game = item
+        }
+    })
+    res.send(game)
+})
 
 app.post("/games/new", function (req, res) {
     var game = {
@@ -88,18 +115,24 @@ app.post("/games/new", function (req, res) {
 //     res.sendStatus(200)
 // })
 
-app.post("/games/join", function (req, res) {
-    var game = games.find(function (game) {
-        return game.id === Number(req.params.id)
-    })
-    if (game.gameState !== "ready"){
-        res.sendStatus(200)
-        return
-    }
-    game.opponent = req.body.opponent
-    game.gameState = "playing"
-    res.sendStatus(200)
-})
+// app.get("/join/:id/:username", function (req, res){
+//     var reqId = req.params.id
+//     var reqUsername = req.params.username
+//     games.forEach(function(item){
+//         if (item.id == reqId){
+//             reqGame = item
+//             if (item.gameState == "ready"){
+//                 item.opponent = reqUsername
+//                 item.gameState = "playing"
+//                 console.log("game joined!")
+//             }
+//         }
+//     })
+//     console.log(reqId + reqUsername)
+//     res.send(reqGame)
+//     // res.render("game")
+// })
+
 
 
 

@@ -2,7 +2,7 @@
   "name": "tictactoefront",
   "version": "1.0.0",
   "description": "Citronium test task",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,8 +18,7 @@
   "homepage": "https://github.com/Fustile/TicTacToeFront#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "express": "^4.17.1",
-    "fs": "0.0.1-security",
-    "mongodb": "^3.3.3"
+    "ejs": "^2.7.1",
+    "express": "^4.17.1"
   }
 }
