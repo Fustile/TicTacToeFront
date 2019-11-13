@@ -14,44 +14,44 @@
     </div>
 
     <div class="playersBar">
-        <div class="playerContainer" style="float: left">
+        <div id="playerOneContainer" class="playerContainer" style="float: left">
             <div class="playerOne">Player One</div>
             <img src=img/Xb.png class="playerOneImg imgInactive">
         </div>
 
-        <div class="playerContainer playerActive" style="float: right">
+        <div id="playerTwoContainer" class="playerContainer playerActive" style="float: right">
             <div class="playerTwo">Player Two</div>
-            <img src=img/Ob.png class="playerTwoImg imgActive">
+            <img src=img/Ob.png class="playerTwoImg imgInactive">
         </div>
     </div>
 
     <div class="gameGrid">
         <div id="gameGrid1">
-            <img src=img/Xb.png class="gridX imgActive">
+            <!-- <img src=img/Xb.png id="g1" class="gridX imgActive"> -->
         </div>
         <div id="gameGrid2">
-            <img src=img/Ob.png class="gridO imgActive">
+            <!-- <img src=img/Ob.png id="g2" class="gridO imgActive"> -->
         </div>
         <div id="gameGrid3">
-            <img src=img/Xb.png class="gridX imgActive">
+            <!-- <img src=img/Xb.png id="g3" class="gridX imgActive"> -->
         </div>
         <div id="gameGrid4">
-            <img src=img/Xb.png class="gridX imgInactive">
+            <!-- <img src=img/Xb.png id="g4" class="gridX imgInactive"> -->
         </div>
         <div id="gameGrid5">
-            <img src=img/Ob.png class="gridO imgInactive">
+            <!-- <img src=img/Ob.png id="g5" class="gridO imgInactive"> -->
         </div>
         <div id="gameGrid6">
-            <img src=img/Xb.png class="gridX imgInactive">
+            <!-- <img src=img/Xb.png id="g6" class="gridX imgInactive"> -->
         </div>
         <div id="gameGrid7">
-            <img src=img/Xb.png class="gridX imgActive">
+            <!-- <img src=img/Xb.png id="g7" class="gridX imgActive"> -->
         </div>
         <div id="gameGrid8">
-            <img src=img/Ob.png class="gridO imgActive">
+            <!-- <img src=img/Ob.png id="g8" class="gridO imgActive"> -->
         </div>
         <div id="gameGrid9">
-            <img src=img/Xb.png class="gridX imgActive">
+            <!-- <img src=img/Xb.png id="g9" class="gridX imgActive"> -->
         </div>
     </div>
 
@@ -62,7 +62,8 @@
     </div>
 
 
-    <div id="gameId">"<%= reqGame.id %>"</div>
+    <div id="gameId" style="display: none;">"<%= reqGame.id %>"</div>
+    <div id="currentPlayer" style="display: none;">"<%= reqGame.currentPlayer %>"</div>
 
 
 

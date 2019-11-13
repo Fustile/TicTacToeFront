@@ -1,13 +1,8 @@
 $(document).ready(function(){
 
-                                            // Index.html
-
     for (let n = 0; n < 20; n++) {
         $("#game" + n).hide()
     }
-
-
-
 
     refreshList()
 
@@ -36,44 +31,41 @@ $(document).ready(function(){
 
     function fillGrid(json){
         $.each(json, function(index){
-            // console.log( [index + 1] + ": " + json[index].owner );
-            $("#game" + [index+1]).find(".name1").removeClass("winner")
-            $("#game" + [index+1]).find(".name1").removeClass("winner")
+            $("#game" + [index]).find(".name1").removeClass("winner")
+            $("#game" + [index]).find(".name1").removeClass("winner")
             if (json[index].gameState == "ready"){
-                $("#game" + [index+1]).attr("class","gridReady")
-                $("#game" + [index+1]).find(".name1").text(json[index].owner)
-                $("#game" + [index+1]).find(".name2").hide()
+                $("#game" + [index]).attr("class","gridReady")
+                $("#game" + [index]).find(".name1").text(json[index].owner)
+                $("#game" + [index]).find(".name2").hide()
             }
             if (json[index].gameState == "playing"){
-                $("#game" + [index+1]).attr("class","gridProgress")
-                $("#game" + [index+1]).find(".name1").text(json[index].owner)
-                $("#game" + [index+1]).find(".name2").text(json[index].opponent)
-                $("#game" + [index+1]).find(".name2").show()
+                $("#game" + [index]).attr("class","gridProgress")
+                $("#game" + [index]).find(".name1").text(json[index].owner)
+                $("#game" + [index]).find(".name2").text(json[index].opponent)
+                $("#game" + [index]).find(".name2").show()
             }
             if (json[index].gameState == "done"){
                 if ( json[index].gameResult == "owner"){
-                    $("#game" + [index+1]).find(".name1").addClass("winner")
-                    $("#game" + [index+1]).find(".name1").html(json[index].owner + '<i class="fa fa-check" aria-hidden="true"></i>')
-                    $("#game" + [index+1]).find(".name2").text(json[index].opponent)
+                    $("#game" + [index]).find(".name1").addClass("winner")
+                    $("#game" + [index]).find(".name1").html(json[index].owner + '<i class="fa fa-check" aria-hidden="true"></i>')
+                    $("#game" + [index]).find(".name2").text(json[index].opponent)
                 }
                 if ( json[index].gameResult == "opponent"){
-                    $("#game" + [index+1]).find(".name2").addClass("winner")
-                    $("#game" + [index+1]).find(".name1").text(json[index].owner)
-                    $("#game" + [index+1]).find(".name2").html(json[index].opponent + '<i class="fa fa-check" aria-hidden="true"></i>')
+                    $("#game" + [index]).find(".name2").addClass("winner")
+                    $("#game" + [index]).find(".name1").text(json[index].owner)
+                    $("#game" + [index]).find(".name2").html(json[index].opponent + '<i class="fa fa-check" aria-hidden="true"></i>')
                 }
-                $("#game" + [index+1]).attr("class","gridEnded")
-                $("#game" + [index+1]).find(".name2").show()
+                $("#game" + [index]).attr("class","gridEnded")
+                $("#game" + [index]).find(".name2").show()
             }
-            $("#game" + [index+1]).find(".gameTime").text(json[index].gameDuration)
-            $("#game" + [index+1]).show()
+            $("#game" + [index]).find(".gameTime").text(json[index].gameDuration)
+            $("#game" + [index]).show()
         })
     }
 
     var num
     var _id
     $("[id^=game]").click(function () {
-        // if ($(this).hasClass("gridReady") == true) {
-        //     console.log("class gridReady")
             if (user == undefined){
                 $("#usernameInput").css('outline', 'solid 1px red');
                 return
@@ -84,10 +76,6 @@ $(document).ready(function(){
             var joinGame = {
                 username: user,
                 id: _id
-            }
-            if ($(this).hasClass("gridReady") == false) {
-                console.log("class not gridReady")
-                joinGame.id = 0
             }
             console.log(JSON.stringify(joinGame))
             $.ajax({
@@ -102,7 +90,6 @@ $(document).ready(function(){
             })
             document.location.href = "/game"
   
-        // }
     })
 
     var user
@@ -138,12 +125,6 @@ $(document).ready(function(){
                 console.log(json)
             },
         })
+        document.location.href = "/game"
     })
-    
-
-                                            // Game.html
-
-
-
-
 })
