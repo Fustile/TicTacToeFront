@@ -21,14 +21,9 @@ $(document).ready(function(){
 
     var buffer
     function refreshState(){
-        var update = {
-            id: gameId
-        }
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: '/game/state' + gameId,
-            data: JSON.stringify(update),
-            contentType: "application/json;charset=utf-8",
             dataType: 'json',
             success: function(json){
                 if (buffer !== json){
@@ -40,16 +35,13 @@ $(document).ready(function(){
     }
 
     function applyState(json) {
-        console.log(json.grid)
         $.each(json.grid, function(index){
             index=index.slice(1)
             if (json.grid["g" + index] == "X"){
-                console.log("X in grid " + [index])
                 $("#gameGrid" + [index]).html('<img src=img/Xb.png id="g' + [index] + '" class="gridX imgInactive">')
                 $("#g" + [index]).show()
             }
             if (json.grid["g" + index] == "O"){
-                console.log("O in grid " + [index])
                 $("#gameGrid" + [index]).html('<img src=img/Ob.png id="g' + [index] + '" class="gridO imgInactive">')
                 $("#g" + [index]).show()
             }
@@ -60,14 +52,17 @@ $(document).ready(function(){
         if (json.gameState !== "ready"){
             $("#playerTwoContainer").show()
         }
+        if (json.gameState == "done"){
+            $("#concede").text("BACK")
+        }
         $(".playerOne").text(json.owner)
-        if (json.owner == currentPlayer){
+        if (json.owner == currentPlayer || currentPlayer == "owner"){
             currentPlayer = "owner"
             $(".playerOneImg").removeClass("imgInactive").addClass("imgActive")
             $(".gridX").removeClass("imgInactive").addClass("imgActive")
         }
         $(".playerTwo").text(json.opponent)
-        if (json.opponent == currentPlayer){
+        if (json.opponent == currentPlayer || currentPlayer == "opponent"){
             currentPlayer = "opponent"
             $(".playerTwoImg").removeClass("imgInactive").addClass("imgActive")
             $(".gridO").removeClass("imgInactive").addClass("imgActive")
@@ -81,20 +76,24 @@ $(document).ready(function(){
             $("#playerOneContainer").removeClass("playerActive")
             $("#playerTwoContainer").addClass("playerActive")
         }
+        if (json.gameResult == "owner"){
+            $("#timer").text(json.owner + " won!")
+        }
+        if (json.gameResult == "opponent"){
+            $("#timer").text(json.opponent + " won!")
+        }
     }
 
     var num
     $("[id^=gameGrid]").click(function (){
         num = "g" + this.id.slice(8)
         if (buffer.turn == currentPlayer){
-            console.log("currentPlayer makes a turn")
             let symbol = (currentPlayer == "owner"? "X" : "O")
             newTurn = {
                 id: gameId,
                 num: num,
                 symbol: symbol,
             }
-            console.log(newTurn)
             $.ajax({
                 type: 'POST',
                 url: '/games/turn',
@@ -110,6 +109,34 @@ $(document).ready(function(){
 
 
     $("#concede").click(function(){
+        if (buffer.gameResult == "owner"){
+            document.location.href = "/"
+            return
+        }
+        if (buffer.gameResult == "opponent"){
+            document.location.href = "/"
+            return
+        }
+        let n
+        if (currentPlayer == "owner"){
+            n = "opponent"
+        }
+        if (currentPlayer == "opponent"){
+            n = "owner"
+        }
+        let Result ={
+            id: gameId,
+            result: n,
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/games/result',
+            data: JSON.stringify(Result),
+            contentType: "application/json;charset=utf-8",
+            dataType: 'json',
+            success: function(json){
+            },
+        })
         document.location.href = "/"
     })
 

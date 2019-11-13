@@ -71,13 +71,11 @@ $(document).ready(function(){
                 return
             }
             num = this.id.slice(4)
-            num--
             _id = buffer[num].id
             var joinGame = {
                 username: user,
                 id: _id
             }
-            console.log(JSON.stringify(joinGame))
             $.ajax({
                 type: 'POST',
                 url: '/games/join',
@@ -85,11 +83,9 @@ $(document).ready(function(){
                 contentType: "application/json;charset=utf-8",
                 dataType: 'json',
                 success: function(json){
-                    console.log(json)
                 },
             })
             document.location.href = "/game"
-  
     })
 
     var user
@@ -98,7 +94,6 @@ $(document).ready(function(){
             $("#usernameInput").css('outline', 'solid 1px red');
             return
         }
-        console.log("submit clicked")
         user = $("#usernameInput").val()
         $("#usernameInput").hide()
         $("#usernameSubmit").hide()
@@ -114,7 +109,6 @@ $(document).ready(function(){
             username: user,
             size: 3
         }
-        console.log(JSON.stringify(newGame))
         $.ajax({
             type: 'POST',
             url: '/games/new',
@@ -122,7 +116,6 @@ $(document).ready(function(){
             contentType: "application/json;charset=utf-8",
             dataType: 'json',
             success: function(json){
-                console.log(json)
             },
         })
         document.location.href = "/game"

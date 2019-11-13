@@ -100,7 +100,6 @@ app.post("/games/join", function (req, res) {
                 item.opponent = req.body.username
                 item.gameState = "playing"
                 item.turn = "owner"
-                console.log("game joined!")
             }
             reqGame = item
             reqGame.currentPlayer = req.body.username
@@ -114,7 +113,7 @@ app.get("/games/list", function(req, res){
     res.send(games)
 })
 
-app.post("/game/state:id", function(req, res){
+app.get("/game/state:id", function(req, res){
     let game
     games.forEach(function(item){
         if (item.id == req.params.id){
@@ -156,6 +155,113 @@ app.post("/games/turn", function (req, res){
         if (item.id == req.body.id){
             item.grid[req.body.num] = req.body.symbol
             item.turn = (item.turn == "owner"? "opponent" : "owner")
+
+            let g1 = item.grid.g1
+            let g2 = item.grid.g2
+            let g3 = item.grid.g3
+            let g4 = item.grid.g4
+            let g5 = item.grid.g5
+            let g6 = item.grid.g6
+            let g7 = item.grid.g7
+            let g8 = item.grid.g8
+            let g9 = item.grid.g9
+
+
+            if (g1 == "X" && g1 == g2 && g2 == g3){
+                item.gameResult = "owner"
+                item.gameState = "done"
+            }
+
+            if (g4 == "X" && g4 == g5 && g5 == g6){
+                item.gameResult = "owner"
+                item.gameState = "done"
+            }
+
+            if (g7 == "X" && g7 == g8 && g2 == g9){
+                item.gameResult = "owner"
+                item.gameState = "done"
+            }
+
+
+            if (g1 == "X" && g1 == g4 && g2 == g7){
+                item.gameResult = "owner"
+                item.gameState = "done"
+            }
+
+            if (g2 == "X" && g2 == g5 && g5 == g8){
+                item.gameResult = "owner"
+                item.gameState = "done"
+            }
+
+            if (g3 == "X" && g3 == g6 && g6 == g9){
+                item.gameResult = "owner"
+                item.gameState = "done"
+            }
+
+
+            if (g1 == "X" && g1 == g5 && g2 == g9){
+                item.gameResult = "owner"
+                item.gameState = "done"
+            }
+
+            if (g3 == "X" && g3 == g5 && g5 == g7){
+                item.gameResult = "owner"
+                item.gameState = "done"
+            }
+
+
+
+            if (g1 == "O" && g1 == g2 && g2 == g3){
+                item.gameResult = "opponent"
+                item.gameState = "done"
+            }
+
+            if (g4 == "O" && g4 == g5 && g5 == g6){
+                item.gameResult = "opponent"
+                item.gameState = "done"
+            }
+
+            if (g7 == "O" && g7 == g8 && g2 == g9){
+                item.gameResult = "opponent"
+                item.gameState = "done"
+            }
+
+
+            if (g1 == "O" && g1 == g4 && g2 == g7){
+                item.gameResult = "opponent"
+                item.gameState = "done"
+            }
+
+            if (g2 == "O" && g2 == g5 && g5 == g8){
+                item.gameResult = "opponent"
+                item.gameState = "done"
+            }
+
+            if (g3 == "O" && g3 == g6 && g6 == g9){
+                item.gameResult = "opponent"
+                item.gameState = "done"
+            }
+
+
+            if (g1 == "O" && g1 == g5 && g2 == g9){
+                item.gameResult = "opponent"
+                item.gameState = "done"
+            }
+
+            if (g3 == "O" && g3 == g5 && g5 == g7){
+                item.gameResult = "opponent"
+                item.gameState = "done"
+            }
+        }
+    })
+    res.sendStatus(200)
+})
+
+app.post("/games/result", function (req, res){
+    games.forEach(function(item){
+        if (item.id == req.body.id){
+            item.gameResult = req.body.result
+            item.gameState = "done"
         }
     })
     res.sendStatus(200)
