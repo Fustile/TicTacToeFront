@@ -177,13 +177,13 @@ app.post("/games/turn", function (req, res){
                 item.gameState = "done"
             }
 
-            if (g7 == "X" && g7 == g8 && g2 == g9){
+            if (g7 == "X" && g7 == g8 && g8 == g9){
                 item.gameResult = "owner"
                 item.gameState = "done"
             }
 
 
-            if (g1 == "X" && g1 == g4 && g2 == g7){
+            if (g1 == "X" && g1 == g4 && g4 == g7){
                 item.gameResult = "owner"
                 item.gameState = "done"
             }
@@ -199,7 +199,7 @@ app.post("/games/turn", function (req, res){
             }
 
 
-            if (g1 == "X" && g1 == g5 && g2 == g9){
+            if (g1 == "X" && g1 == g5 && g5 == g9){
                 item.gameResult = "owner"
                 item.gameState = "done"
             }
@@ -221,13 +221,13 @@ app.post("/games/turn", function (req, res){
                 item.gameState = "done"
             }
 
-            if (g7 == "O" && g7 == g8 && g2 == g9){
+            if (g7 == "O" && g7 == g8 && g8 == g9){
                 item.gameResult = "opponent"
                 item.gameState = "done"
             }
 
 
-            if (g1 == "O" && g1 == g4 && g2 == g7){
+            if (g1 == "O" && g1 == g4 && g4 == g7){
                 item.gameResult = "opponent"
                 item.gameState = "done"
             }
@@ -243,7 +243,7 @@ app.post("/games/turn", function (req, res){
             }
 
 
-            if (g1 == "O" && g1 == g5 && g2 == g9){
+            if (g1 == "O" && g1 == g5 && g5 == g9){
                 item.gameResult = "opponent"
                 item.gameState = "done"
             }
