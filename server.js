@@ -252,6 +252,20 @@ app.post("/games/turn", function (req, res){
                 item.gameResult = "opponent"
                 item.gameState = "done"
             }
+
+            function detectDraw(element, index, array){
+                console.log ("element = ")
+                console.log (element)
+                for (index of element){
+                    console.log("index of element")
+                }
+                // if (element == "?")
+                // console.log("full")
+                // else
+                // console.log("not full")
+
+            }
+            console.log([item.grid].find(detectDraw))
         }
     })
     res.sendStatus(200)
